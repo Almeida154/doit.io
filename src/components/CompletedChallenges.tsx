@@ -9,7 +9,7 @@ export function CompletedChallenges() {
 
   return (
     <div className={styles.container}>
-      <span>Desafios completos</span>
+      <span>Completed challenges</span>
       <span>{completedChallenges}</span>
     </div>
   );

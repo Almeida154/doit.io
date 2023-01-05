@@ -34,7 +34,7 @@ export function Countdown() {
           className={styles.countdownButton}
           onClick={toggleCountdown}
         >
-          Ciclo encerrado
+          Closed cycle
         </button>
       ) : (
         <button
@@ -44,7 +44,7 @@ export function Countdown() {
           }`}
           onClick={toggleCountdown}
         >
-          {isActive ? 'Abandonar ciclo' : 'Iniciar um ciclo'}
+          {isActive ? 'Give up of this cycle' : 'Start a cycle'}
         </button>
       )}
     </>
