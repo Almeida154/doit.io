@@ -15,7 +15,7 @@ interface CountdownProviderProps {
 
 export const CountdownContext = createContext({} as CountdownContextData);
 
-const EACH_CYCLE_TIME = 2;
+const EACH_CYCLE_TIME = 25 * 60;
 let countdownTimeout: NodeJS.Timeout;
 
 export const CountdownProvider: React.FC<CountdownProviderProps> = ({
