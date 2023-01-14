@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 class UserController {
-  async create(req: FastifyRequest, res: FastifyReply) {
+  async create(request: FastifyRequest, reply: FastifyReply) {
     return 'Hello from UserController';
   }
 }
