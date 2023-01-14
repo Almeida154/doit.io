@@ -1,7 +1,7 @@
 <br>
 
 <h1 align="center">
-    <img alt="Move.it logo" title="Move.it" src="public/logo-full.svg" width="250px" />
+    <img alt="Move.it logo" title="Move.it" src="web/public/logo-full.svg" width="250px" />
 </h1>
 
 <br>
@@ -26,7 +26,7 @@
 
 move.it is an app that combines the Pomodoro technique with physical exercises for those who spend a lot of time in front of the computer.
 
-Click [here](<https://www.figma.com/file/ge20pu3ofMOKoliUyKx1Nl/Move.it-1.0?node-id=160%3A2761&t=VTr3YAjAGdLmRcAR-0>) to see the layout on **Figma**.
+Click [here](https://www.figma.com/file/ge20pu3ofMOKoliUyKx1Nl/Move.it-1.0?node-id=160%3A2761&t=VTr3YAjAGdLmRcAR-0) to see the layout on **Figma**.
 
 <br>
 
