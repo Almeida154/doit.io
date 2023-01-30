@@ -1,9 +1,15 @@
+import { config } from 'dotenv';
+config();
+
 import fastify from 'fastify';
+import cors from '@fastify/cors';
+
 import routes from './routes';
 
 const server = fastify();
-const port = 3000;
+const port = 3333;
 
+server.register(cors);
 server.register(routes);
 
 server.listen({ port }, (err, address) => {

@@ -1,67 +1,59 @@
 import { GetServerSideProps } from 'next';
+
 import Head from 'next/head';
+import { useEffect } from 'react';
 
-import {
-  ExperienceBar,
-  Profile,
-  CompletedChallenges,
-  Countdown,
-  ChallengeBox,
-} from 'components';
+import Cookies from 'js-cookie';
 
-import { CountdownProvider } from 'contexts/CountdownContext';
-import { ChallengesProvider } from 'contexts/ChallengesContext';
+import api from 'services/api';
+import { addDays } from 'date-fns';
+import Router from 'next/router';
 
-import styles from 'styles/pages/Home.module.css';
+export default function Login() {
+  const handleGithubLogin = () => {
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
+    );
+  };
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  completedChallenges: number;
-}
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const gitHubCode = urlParams.get('code');
 
-export default function Home(props: HomeProps) {
-  const { level, currentExperience, completedChallenges } = props;
+    if (gitHubCode) {
+      handleLogin(gitHubCode);
+    }
+  }, []);
+
+  const handleLogin = async (gitHubCode: string) => {
+    const { data } = await api.get(`/login?code=${gitHubCode}`);
+
+    if (data) {
+      Cookies.set('access_token', data.accessToken, {
+        expires: addDays(new Date(), 7),
+      });
+
+      Router.replace('/home');
+    }
+  };
 
   return (
-    <ChallengesProvider
-      level={level}
-      currentExperience={currentExperience}
-      completedChallenges={completedChallenges}
+    <div
+      style={{
+        background: '#5965E0',
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
-      <div className={styles.container}>
-        <Head>
-          <title>Home | move.it</title>
-        </Head>
+      <Head>
+        <title>Login | move.it</title>
+      </Head>
 
-        <ExperienceBar />
-
-        <CountdownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
-      </div>
-    </ChallengesProvider>
+      <button onClick={handleGithubLogin}>Login com Github</button>
+    </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { level, currentExperience, completedChallenges } = ctx.req.cookies;
-
-  return {
-    props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      completedChallenges: Number(completedChallenges),
-    },
-  };
-};
