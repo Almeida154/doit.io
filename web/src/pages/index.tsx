@@ -1,42 +1,44 @@
 import { GetServerSideProps } from 'next';
 
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
-import Cookies from 'js-cookie';
+import axios from 'axios';
 
-import api from 'services/api';
-import { addDays } from 'date-fns';
 import Router from 'next/router';
 
-export default function Login() {
-  const handleGithubLogin = () => {
-    window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`
-    );
+import { User, UserContext } from 'contexts/UserContext';
+
+interface LoginProps {
+  authenticatedUser: User;
+}
+
+export default function Login({ authenticatedUser }: LoginProps) {
+  const { setUser, handleLogin } = useContext(UserContext);
+
+  const handleGitHubAuth = () => {
+    const githubClientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID;
+    const githubIntegrationUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}`;
+    window.location.assign(githubIntegrationUrl);
   };
+
+  useEffect(() => {
+    if (authenticatedUser) {
+      setUser(authenticatedUser);
+      Router.replace('/home');
+    }
+  }, [authenticatedUser, setUser]);
 
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const gitHubCode = urlParams.get('code');
+    const githubCode = urlParams.get('code');
 
-    if (gitHubCode) {
-      handleLogin(gitHubCode);
+    if (githubCode) {
+      handleLogin(githubCode);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleLogin = async (gitHubCode: string) => {
-    const { data } = await api.get(`/login?code=${gitHubCode}`);
-
-    if (data) {
-      Cookies.set('access_token', data.accessToken, {
-        expires: addDays(new Date(), 7),
-      });
-
-      Router.replace('/home');
-    }
-  };
 
   return (
     <div
@@ -53,7 +55,27 @@ export default function Login() {
         <title>Login | move.it</title>
       </Head>
 
-      <button onClick={handleGithubLogin}>Login com Github</button>
+      <button onClick={handleGitHubAuth}>Login com Github</button>
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { access_token } = req.cookies;
+
+  let authenticatedUser = null;
+
+  if (access_token) {
+    const { data: user } = await axios.post('http://localhost:3333/auth', {
+      accessToken: access_token,
+    });
+
+    authenticatedUser = user;
+  }
+
+  return {
+    props: {
+      authenticatedUser,
+    },
+  };
+};

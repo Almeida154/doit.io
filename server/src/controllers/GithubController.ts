@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 
-import { STANDARD } from '../helpers/constants';
+import { STANDARD, ERROR_401 } from '../helpers/constants';
 
 const prisma = new PrismaClient();
 
@@ -33,7 +33,7 @@ class GithubController {
 
       const accessToken = data.access_token;
 
-      const { data: userData } = await axios.get<GitHubResponse>(
+      const { data: githubData } = await axios.get<GitHubResponse>(
         'https://api.github.com/user',
         {
           headers: {
@@ -42,23 +42,23 @@ class GithubController {
         }
       );
 
-      const userExists = await prisma.user.findFirst({
+      let user = await prisma.user.findFirst({
         where: {
           username: {
-            equals: userData.login,
+            equals: githubData.login,
           },
         },
       });
 
-      if (userExists === null) {
-        const user = await prisma.user.create({
+      if (user === null) {
+        user = await prisma.user.create({
           data: {
             completedChallenges: 0,
             currentXp: 0,
             isDarkMode: false,
             level: 1,
             totalXp: 0,
-            username: userData.login,
+            username: githubData.login,
             id: uuid(),
           },
         });
@@ -66,7 +66,43 @@ class GithubController {
 
       await prisma.$disconnect();
 
-      return reply.code(STANDARD.SUCCEED).send({ accessToken, userData });
+      return reply
+        .code(STANDARD.SUCCEED)
+        .send({ ...user, github: githubData, accessToken });
+    } catch (error) {
+      return reply.send({ error });
+    }
+  }
+
+  async auth(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { accessToken } = request.body as { accessToken: string };
+
+      const { data: githubData } = await axios.get<GitHubResponse>(
+        'https://api.github.com/user',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      const user = await prisma.user.findFirst({
+        where: {
+          username: {
+            equals: githubData.login,
+          },
+        },
+      });
+
+      if (user) {
+        return reply.status(STANDARD.SUCCEED).send({
+          ...user,
+          github: githubData,
+        });
+      }
+
+      return reply.status(ERROR_401.statusCode).send({});
     } catch (error) {
       return reply.send({ error });
     }

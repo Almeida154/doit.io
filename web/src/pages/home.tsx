@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
+import { useContext } from 'react';
 import Head from 'next/head';
-
-import Cookies from 'js-cookie';
 
 import {
   ExperienceBar,
@@ -14,8 +13,9 @@ import {
 import { CountdownProvider } from 'contexts/CountdownContext';
 import { ChallengesProvider } from 'contexts/ChallengesContext';
 
+import { UserContext } from 'contexts';
+
 import styles from 'styles/pages/Home.module.css';
-import Router from 'next/router';
 
 interface HomeProps {
   level: number;
@@ -23,13 +23,12 @@ interface HomeProps {
   completedChallenges: number;
 }
 
-export default function Home(props: HomeProps) {
-  const { level, currentExperience, completedChallenges } = props;
-
-  const handleLogout = () => {
-    Cookies.remove('access_token');
-    Router.replace('/');
-  };
+export default function Home({
+  level,
+  currentExperience,
+  completedChallenges,
+}: HomeProps) {
+  const { handleLogout } = useContext(UserContext);
 
   return (
     <ChallengesProvider
