@@ -38,7 +38,7 @@ export default function Home({
     >
       <div className={styles.container}>
         <Head>
-          <title>Home | move.it</title>
+          <title>Home | doit.io</title>
         </Head>
 
         <ExperienceBar />

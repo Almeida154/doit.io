@@ -4,6 +4,7 @@ import { CompletedChallenges } from './CompletedChallenges';
 import { Countdown } from './Countdown';
 import { ChallengeBox } from './ChallengeBox';
 import { LevelUpModal } from './LevelUpModal';
+import { Button } from './Button';
 
 export {
   ExperienceBar,
@@ -12,4 +13,5 @@ export {
   Countdown,
   ChallengeBox,
   LevelUpModal,
+  Button,
 };

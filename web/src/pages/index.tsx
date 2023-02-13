@@ -8,6 +8,7 @@ import axios from 'axios';
 import Router from 'next/router';
 
 import { User, UserContext } from 'contexts/UserContext';
+import { Button } from 'components';
 
 interface LoginProps {
   authenticatedUser: User;
@@ -41,21 +42,14 @@ export default function Login({ authenticatedUser }: LoginProps) {
   }, []);
 
   return (
-    <div
-      style={{
-        background: '#5965E0',
-        height: '100vh',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div>
       <Head>
-        <title>Login | move.it</title>
+        <title>Login | doit.io</title>
       </Head>
 
-      <button onClick={handleGitHubAuth}>Login com Github</button>
+      {/* <button onClick={handleGitHubAuth}>Login com Github</button> */}
+
+      <Button text="oi" onClick={() => alert('oi')} />
     </div>
   );
 }
