@@ -47,7 +47,7 @@ export default function Login({ authenticatedUser }: LoginProps) {
         <title>Login | doit.io</title>
       </Head>
 
-      {/* <button onClick={handleGitHubAuth}>Login com Github</button> */}
+      <button onClick={handleGitHubAuth}>Login com Github</button>
 
       <Button text="oi" onClick={() => alert('oi')} />
     </div>
