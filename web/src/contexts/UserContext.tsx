@@ -6,13 +6,14 @@ import {
   useEffect,
   useState,
 } from 'react';
+
 import { addDays } from 'date-fns';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 
 import api from 'services/api';
 
-import { darkTheme, lightTheme } from 'styles';
+import { darkTheme, lightTheme } from 'styles/theme';
 
 export interface User {
   id: string;
@@ -35,6 +36,7 @@ interface UserContextData {
   setUser: Dispatch<SetStateAction<User>>;
   handleLogin: (githubCode: string) => void;
   handleLogout: () => void;
+  theme: string;
 }
 
 interface UserContextProps {
@@ -49,11 +51,15 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
 
   useEffect(() => {
     if (window.localStorage) {
-      const storageUser = localStorage.getItem('@user');
-      setUser(JSON.parse(storageUser as string));
+      const storageUser = JSON.parse(localStorage.getItem('@user') as string);
 
-      const userTheme = user.isDarkMode ? darkTheme : lightTheme;
-      setTheme(userTheme);
+      if (storageUser) {
+        setUser(storageUser);
+
+        const userTheme = user.isDarkMode ? darkTheme : lightTheme;
+        document.body.style.background = userTheme.colors.background.value;
+        setTheme(userTheme);
+      }
     }
   }, [user?.isDarkMode]);
 
@@ -65,10 +71,8 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
         expires: addDays(new Date(), 7),
       });
 
-      setUser(user);
-
       localStorage.setItem('@user', JSON.stringify(user));
-
+      setUser(user);
       Router.replace('/home');
     }
   };
@@ -76,6 +80,7 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
   const handleLogout = () => {
     Router.replace('/');
     Cookies.remove('access_token');
+    localStorage.removeItem('@user');
     setUser({} as User);
   };
 
@@ -86,9 +91,10 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
         setUser,
         handleLogin,
         handleLogout,
+        theme,
       }}
     >
-      <div className={theme}>{children}</div>
+      {children}
     </UserContext.Provider>
   );
 };

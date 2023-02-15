@@ -55,7 +55,7 @@ class GithubController {
           data: {
             completedChallenges: 0,
             currentXp: 0,
-            isDarkMode: false,
+            isDarkMode: true,
             level: 1,
             totalXp: 0,
             username: githubData.login,

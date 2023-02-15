@@ -9,8 +9,6 @@ export function Profile() {
   const { level } = useContext(ChallengesContext);
   const { user } = useContext(UserContext);
 
-  console.log(user);
-
   return (
     <div className={styles.container}>
       <Image
