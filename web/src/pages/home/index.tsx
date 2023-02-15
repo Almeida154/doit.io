@@ -15,7 +15,7 @@ import { ChallengesProvider } from 'contexts/ChallengesContext';
 
 import { UserContext } from 'contexts';
 
-import styles from 'styles/pages/Home.module.css';
+import { Wrapper } from './styles';
 
 interface HomeProps {
   level: number;
@@ -36,7 +36,7 @@ export default function Home({
       currentExperience={currentExperience}
       completedChallenges={completedChallenges}
     >
-      <div className={styles.container}>
+      <Wrapper>
         <Head>
           <title>Home | doit.io</title>
         </Head>
@@ -56,7 +56,7 @@ export default function Home({
             </div>
           </section>
         </CountdownProvider>
-      </div>
+      </Wrapper>
 
       <button onClick={handleLogout}>Logout</button>
     </ChallengesProvider>

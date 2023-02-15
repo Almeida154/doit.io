@@ -1,7 +1,7 @@
 import { CountdownContext } from 'contexts';
 import { useContext, useEffect, useState } from 'react';
 
-import styles from 'styles/components/Countdown.module.css';
+import { Wrapper } from './styles';
 
 export function Countdown() {
   const { minutes, seconds, hasFinished, isActive, toggleCountdown } =
@@ -14,7 +14,7 @@ export function Countdown() {
 
   return (
     <>
-      <div className={styles.container}>
+      <Wrapper>
         <div>
           <span>{leftMinuteNumber}</span>
           <span>{rightMinuteNumber}</span>
@@ -26,24 +26,14 @@ export function Countdown() {
           <span>{leftSecondNumber}</span>
           <span>{rightSecondNumber}</span>
         </div>
-      </div>
+      </Wrapper>
 
       {hasFinished ? (
-        <button
-          disabled
-          className={styles.countdownButton}
-          onClick={toggleCountdown}
-        >
+        <button disabled onClick={toggleCountdown}>
           Closed cycle
         </button>
       ) : (
-        <button
-          type="button"
-          className={`${styles.countdownButton} ${
-            isActive && styles.countdownButtonActive
-          }`}
-          onClick={toggleCountdown}
-        >
+        <button type="button" onClick={toggleCountdown}>
           {isActive ? 'Give up of this cycle' : 'Start a cycle'}
         </button>
       )}

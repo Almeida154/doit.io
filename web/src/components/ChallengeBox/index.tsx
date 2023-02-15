@@ -1,15 +1,17 @@
 import { useContext } from 'react';
 import Image from 'next/image';
 
-import { ChallengesContext, CountdownContext } from 'contexts';
+import { ChallengesContext, CountdownContext, UserContext } from 'contexts';
 
-import styles from 'styles/components/ChallengeBox.module.css';
+import { Active, NotActive, Wrapper } from './styles';
 
 export function ChallengeBox() {
   const { activeChallenge, handleResetChallenge, handleCompleteChallenge } =
     useContext(ChallengesContext);
 
   const { toggleCountdown } = useContext(CountdownContext);
+
+  const { theme } = useContext(UserContext);
 
   const handleFailedChallenge = () => {
     toggleCountdown();
@@ -22,9 +24,9 @@ export function ChallengeBox() {
   };
 
   return (
-    <div className={styles.container}>
+    <Wrapper className={theme}>
       {activeChallenge ? (
-        <div className={styles.active}>
+        <Active>
           <header>Get {activeChallenge.amount} xp</header>
 
           <main>
@@ -39,32 +41,24 @@ export function ChallengeBox() {
           </main>
 
           <footer>
-            <button
-              type="button"
-              className={styles.failedButton}
-              onClick={handleFailedChallenge}
-            >
+            <button type="button" onClick={handleFailedChallenge}>
               Failed
             </button>
 
-            <button
-              type="button"
-              className={styles.succeededButton}
-              onClick={handleSucceededChallenge}
-            >
+            <button type="button" onClick={handleSucceededChallenge}>
               Done
             </button>
           </footer>
-        </div>
+        </Active>
       ) : (
-        <div className={styles.notActive}>
+        <NotActive>
           <strong>Finish a cycle to receive a challenge</strong>
           <p>
             <Image src="/icons/level-up.svg" alt="Level Up" width={59} height={80} />
             Level up by completing challenges
           </p>
-        </div>
+        </NotActive>
       )}
-    </div>
+    </Wrapper>
   );
 }

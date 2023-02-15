@@ -14,6 +14,7 @@ import Router from 'next/router';
 import api from 'services/api';
 
 import { darkTheme, lightTheme } from 'styles/theme';
+import { createTheme } from 'styles';
 
 export interface User {
   id: string;
@@ -36,7 +37,7 @@ interface UserContextData {
   setUser: Dispatch<SetStateAction<User>>;
   handleLogin: (githubCode: string) => void;
   handleLogout: () => void;
-  theme: string;
+  theme: any;
 }
 
 interface UserContextProps {

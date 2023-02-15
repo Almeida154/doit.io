@@ -3,16 +3,15 @@ import { useContext } from 'react';
 
 import { ChallengesContext, UserContext } from 'contexts';
 
-import styles from 'styles/components/Profile.module.css';
+import { Wrapper, Picture } from './styles';
 
 export function Profile() {
   const { level } = useContext(ChallengesContext);
-  const { user } = useContext(UserContext);
+  const { user, theme } = useContext(UserContext);
 
   return (
-    <div className={styles.container}>
-      <Image
-        className={styles.picture}
+    <Wrapper className={theme}>
+      <Picture
         src={
           user?.github?.avatar_url ??
           'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
@@ -31,6 +30,6 @@ export function Profile() {
           Level {level}
         </p>
       </div>
-    </div>
+    </Wrapper>
   );
 }
