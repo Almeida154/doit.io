@@ -24,7 +24,12 @@ export const globalStyles = globalCss({
   },
   a: {
     color: 'inherit',
-    textDecoration: 'none',
+    textUnderlineOffset: '4px',
+    transition: 'color .1s',
+
+    '&:hover': {
+      color: '$title',
+    },
   },
   html: {
     '@large': {
