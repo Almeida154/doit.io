@@ -1,4 +1,5 @@
-import { styled } from 'styles';
+import { transparentize } from 'polished';
+import { styled, theme } from 'styles';
 
 export const Wrapper = styled('button', {
   background: '$container',
@@ -11,7 +12,11 @@ export const Wrapper = styled('button', {
   transition: 'background .1s',
 
   '&:hover': {
-    background: '$background',
+    background: transparentize(0.8, theme.colors.text.value),
+  },
+
+  '&:disabled': {
+    cursor: 'not-allowed',
   },
 });
 

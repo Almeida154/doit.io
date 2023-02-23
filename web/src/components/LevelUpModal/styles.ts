@@ -1,7 +1,11 @@
-import { styled } from 'styles';
+import { transparentize } from 'polished';
+import { styled, theme } from 'styles';
+
+const { background } = theme.colors;
 
 export const Overlay = styled('div', {
-  background: 'rgba(242, 243, 245, 0.8)',
+  background: transparentize(0.4, background.value),
+  backdropFilter: 'blur(4px)',
   position: 'fixed',
   top: 0,
   bottom: 0,
@@ -13,31 +17,29 @@ export const Overlay = styled('div', {
 });
 
 export const Wrapper = styled('div', {
-  background: 'red',
+  background: '$background',
   width: '100%',
   maxWidth: '400px',
   padding: '2rem 3rem',
   borderRadius: '5px',
-  boxShadow: '0 0 60 rgba(0, 0, 0, 0.05)',
   textAlign: 'center',
   position: 'relative',
 
   header: {
     fontSize: '8.75rem',
     fontWeight: 600,
-    color: 'blue',
-    background: "url('/icons/level-up-bg.svg') no-repeat center",
+    color: '$title',
     backgroundSize: 'contain',
   },
 
   strong: {
     fontSize: '2.25rem',
-    color: 'green',
+    color: '$title',
   },
 
   p: {
     fontSize: '1.25rem',
-    color: 'violet',
+    color: '$text',
     marginTop: '0.25rem',
   },
 

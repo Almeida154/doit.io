@@ -1,4 +1,6 @@
-import { styled } from 'styles';
+import { styled, theme } from 'styles';
+
+const { container, title, text, background } = theme.colors;
 
 export const Wrapper = styled('div', {
   display: 'flex',
@@ -6,10 +8,12 @@ export const Wrapper = styled('div', {
   justifyContent: 'space-between',
   margin: '3.5rem 0',
   paddingBottom: '1rem',
-  borderBottom: '1px solid #d7d8da',
+  borderBottom: `1px solid ${container}`,
   fontWeight: 500,
 
   span: {
+    color: text,
+
     '&:first-child': {
       fontSize: '1.25rem',
     },

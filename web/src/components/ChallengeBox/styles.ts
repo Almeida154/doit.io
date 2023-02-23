@@ -1,10 +1,9 @@
-import { styled } from 'styles';
+import { styled, theme } from 'styles';
 
 export const Wrapper = styled('div', {
   height: '100%',
-  background: '$background',
+  background: '$container',
   borderRadius: '5px',
-  boxShadow: '0 0 60px rgba(0, 0, 0, 0.05)',
   padding: '1.5rem 2rem',
   display: 'flex',
   flexDirection: 'column',
@@ -31,10 +30,7 @@ export const NotActive = styled('div', {
     lineHeight: '1.4rem',
     maxWidth: '70%',
     marginTop: '3rem',
-
-    img: {
-      marginBottom: '1rem',
-    },
+    gap: '16px',
   },
 });
 
@@ -44,11 +40,11 @@ export const Active = styled('div', {
   flexDirection: 'column',
 
   header: {
-    color: 'red',
+    color: '$text',
     fontWeight: 600,
     fontSize: '1.25rem',
     padding: '0 2rem 1.5rem',
-    borderBottom: '1px solid green',
+    borderBottom: '1px solid $text',
   },
 
   main: {
@@ -61,7 +57,7 @@ export const Active = styled('div', {
     strong: {
       fontWeight: 600,
       fontSize: '2rem',
-      color: 'yellow',
+      color: '$title',
       margin: '1.5rem 0 1rem',
     },
 

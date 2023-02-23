@@ -1,7 +1,8 @@
-import Image from 'next/image';
 import { useContext } from 'react';
+import { BiMeteor } from 'react-icons/bi';
 
 import { ChallengesContext, UserContext } from 'contexts';
+import { theme as appTheme } from 'styles';
 
 import { Wrapper, Picture } from './styles';
 
@@ -24,10 +25,10 @@ export function Profile() {
       <div>
         <strong>{user?.github?.name}</strong>
         <br />
-        <strong>{user?.username}</strong>
+        <strong className="username">{user?.username}</strong>
         <p>
-          <Image src="/icons/level.svg" width={14} height={16} alt="Level" />
-          Level {level}
+          <BiMeteor size={16} color={appTheme.colors.title.toString()} />
+          LVL {level}
         </p>
       </div>
     </Wrapper>

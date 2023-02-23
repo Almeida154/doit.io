@@ -59,7 +59,7 @@ export default function Login({ authenticatedUser }: LoginProps) {
       </Head>
 
       <Content>
-        <Image alt="Lamps icon" src="/lamps.svg" width="282" height="195" />
+        <Image alt="Lamps icon" src="/icons/lamps.svg" width="282" height="195" />
 
         <DoitLogo />
 

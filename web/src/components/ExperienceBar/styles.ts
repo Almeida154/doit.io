@@ -20,7 +20,7 @@ export const Wrapper = styled('div', {
     flex: 1,
     height: '4px',
     borderRadius: '4px',
-    background: 'violet',
+    background: '$container',
     margin: '0 1.5rem',
     position: 'relative',
   },
@@ -28,7 +28,7 @@ export const Wrapper = styled('div', {
   '& > div > div': {
     height: '4px',
     borderRadius: '4px',
-    background: 'blue',
+    background: '$text',
     transition: 'width 0.4s',
   },
 });

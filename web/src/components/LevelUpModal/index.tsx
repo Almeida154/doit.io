@@ -1,16 +1,18 @@
-import Image from 'next/image';
 import { useContext } from 'react';
+import { BiX } from 'react-icons/bi';
 
-import { ChallengesContext } from 'contexts';
+import { ChallengesContext, UserContext } from 'contexts';
+import { theme as appTheme } from 'styles';
 
 import { Overlay, Wrapper } from './styles';
 
 export function LevelUpModal() {
   const { level, handleCloseLevelUpModal } = useContext(ChallengesContext);
+  const { theme } = useContext(UserContext);
 
   return (
     <>
-      <Overlay>
+      <Overlay className={theme}>
         <Wrapper>
           <header>{level}</header>
 
@@ -18,7 +20,7 @@ export function LevelUpModal() {
           <p>You have reached a new level!</p>
 
           <button type="button" onClick={handleCloseLevelUpModal}>
-            <Image src="/icons/close.svg" width={40} height={40} alt="Close modal" />
+            <BiX color={appTheme.colors.title.toString()} size={24} />
           </button>
         </Wrapper>
       </Overlay>
