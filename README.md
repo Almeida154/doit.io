@@ -1,7 +1,7 @@
 <br>
 
 <h1 align="center">
-  <img alt="Doit.io logo" title="Move.it" src="web/public/icons/logo.svg" width="250px" />
+  <img alt="Doit.io logo" title="Move.it" src="web/public/icons/doit-logo.svg" width="250px" />
 </h1>
 
 <br>
