@@ -32,13 +32,13 @@ Click [here](<https://www.figma.com/file/paT0NeYPCMgsqOzrb2P4bJ/Move.it-2.0-(Cop
 
 ### 🚀 Technologies
 
-- [React.js](https://reactjs.org)
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [ContextAPI](https://reactjs.org/docs/context.html)
 - [Stitches](https://stitches.dev/)
 - [Polished](https://polished.js.org/)
 - [React Icons](https://react-icons.github.io/react-icons)
+- [Node.js](https://nodejs.org/en/)
 - [Fastify](https://www.fastify.io/)
 - [Prisma](https://www.prisma.io/)
 - [SQLite](https://www.sqlite.org/index.html)
