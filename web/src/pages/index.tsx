@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { DEV_BASE_WEB_URI } from 'services/settings';
+import { DEV_BASE_WEB_URI } from 'utils/settings';
 
 export default function Index() {
   const router = useRouter();

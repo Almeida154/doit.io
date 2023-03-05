@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import { ImGithub } from 'react-icons/im';
 
-import { DEV_BASE_SERVER_URI } from 'services/settings';
+import { DEV_BASE_SERVER_URI } from 'utils/settings';
 
 import { User, UserContext } from 'contexts/UserContext';
 

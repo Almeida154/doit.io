@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 
 import {
@@ -16,26 +16,20 @@ import { ChallengesProvider } from 'contexts/ChallengesContext';
 import { UserContext } from 'contexts';
 
 import { Wrapper } from './styles';
+import { UserService } from 'services/UserService';
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  completedChallenges: number;
-}
+export default function Home({ accessToken }: { accessToken: string }) {
+  const { handleLogout, user, setUser } = useContext(UserContext);
 
-export default function Home({
-  level,
-  currentExperience,
-  completedChallenges,
-}: HomeProps) {
-  const { handleLogout } = useContext(UserContext);
+  useEffect(() => {
+    (async () => {
+      const res = await UserService.getUser(accessToken);
+      res.user && setUser(res.user);
+    })();
+  }, [setUser, user.id, accessToken]);
 
   return (
-    <ChallengesProvider
-      level={level}
-      currentExperience={currentExperience}
-      completedChallenges={completedChallenges}
-    >
+    <ChallengesProvider>
       <Wrapper>
         <Head>
           <title>Home | doit.io</title>
@@ -57,15 +51,13 @@ export default function Home({
           </section>
         </CountdownProvider>
       </Wrapper>
-
       <button onClick={handleLogout}>Logout</button>
     </ChallengesProvider>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { level, currentExperience, completedChallenges, access_token } =
-    req.cookies;
+  const { access_token } = req.cookies;
 
   if (!access_token) {
     return {
@@ -78,9 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      completedChallenges: Number(completedChallenges),
+      accessToken: access_token,
     },
   };
 };

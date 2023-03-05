@@ -7,14 +7,14 @@ import { theme as appTheme } from 'styles';
 import { Overlay, Wrapper } from './styles';
 
 export function LevelUpModal() {
-  const { level, handleCloseLevelUpModal } = useContext(ChallengesContext);
-  const { theme } = useContext(UserContext);
+  const { handleCloseLevelUpModal } = useContext(ChallengesContext);
+  const { theme, user } = useContext(UserContext);
 
   return (
     <>
       <Overlay className={theme}>
         <Wrapper>
-          <header>{level}</header>
+          <header>{user.level}</header>
 
           <strong>Congrats</strong>
           <p>You have reached a new level!</p>

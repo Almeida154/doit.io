@@ -4,13 +4,12 @@ import { useContext } from 'react';
 import { Wrapper } from './styles';
 
 export function ExperienceBar() {
-  const { currentExperience, neededExperienceToNextLevel } =
-    useContext(ChallengesContext);
+  const { neededExperienceToNextLevel } = useContext(ChallengesContext);
 
-  const { theme } = useContext(UserContext);
+  const { theme, user } = useContext(UserContext);
 
   const currentLevelProgress =
-    Math.round(currentExperience * 100) / neededExperienceToNextLevel;
+    Math.round(user.currentXp * 100) / neededExperienceToNextLevel;
 
   return (
     <Wrapper className={theme}>
@@ -22,7 +21,7 @@ export function ExperienceBar() {
           className="currentExperience"
           style={{ left: `${currentLevelProgress}%` }}
         >
-          {currentExperience} xp
+          {user.currentXp} xp
         </span>
       </div>
       <span>{neededExperienceToNextLevel} xp</span>

@@ -1,9 +1,10 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 import Cookies from 'js-cookie';
 
 import challenges from '../../challenges.json';
 import { LevelUpModal } from 'components';
+import { UserContext } from './UserContext';
 
 interface Challenge {
   type: 'body' | 'eye';
@@ -12,9 +13,6 @@ interface Challenge {
 }
 
 interface ChallengesContextData {
-  level: number;
-  currentExperience: number;
-  completedChallenges: number;
   activeChallenge: Challenge | null;
   neededExperienceToNextLevel: number;
   handleLevelUp: () => void;
@@ -26,24 +24,15 @@ interface ChallengesContextData {
 
 interface ChallengesProviderProps {
   children: ReactNode;
-  level: number;
-  currentExperience: number;
-  completedChallenges: number;
 }
 
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
   children,
-  ...rest
 }) => {
-  const [level, setLevel] = useState(rest.level ?? 1);
-  const [currentExperience, setCurrentExperience] = useState(
-    rest.currentExperience ?? 0
-  );
-  const [completedChallenges, setCompletedChallenges] = useState(
-    rest.completedChallenges ?? 0
-  );
+  const { handleUpdateUser, user } = useContext(UserContext);
+
   const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null);
   const [isLevelModalUpOpen, setIsLevelModalUpOpen] = useState(false);
 
@@ -53,16 +42,14 @@ export const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
     Notification.requestPermission();
   }, []);
 
-  useEffect(() => {
-    Cookies.set('level', String(level));
-    Cookies.set('currentExperience', String(currentExperience));
-    Cookies.set('completedChallenges', String(completedChallenges));
-  }, [level, currentExperience, completedChallenges]);
+  const neededExperienceToNextLevel = Math.pow((user.level + 1) * DIFFICULT, 2);
 
-  const neededExperienceToNextLevel = Math.pow((level + 1) * DIFFICULT, 2);
+  const handleLevelUp = async () => {
+    await handleUpdateUser({
+      ...user,
+      level: user.level + 1,
+    });
 
-  const handleLevelUp = () => {
-    setLevel((prev) => prev++);
     setIsLevelModalUpOpen(true);
   };
 
@@ -85,28 +72,41 @@ export const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
 
   const handleResetChallenge = () => setActiveChallenge(null);
 
-  const handleCompleteChallenge = () => {
+  const handleCompleteChallenge = async () => {
     if (!activeChallenge) return;
 
     const { amount } = activeChallenge;
-    let finalExperience = currentExperience + amount;
+    let finalExperience = user.currentXp + amount;
 
     if (finalExperience >= neededExperienceToNextLevel) {
       finalExperience -= neededExperienceToNextLevel;
-      handleLevelUp();
+
+      await handleUpdateUser({
+        ...user,
+        level: user.level + 1,
+        completedChallenges: user.completedChallenges + 1,
+        currentXp: finalExperience,
+        totalXp: user.totalXp + user.currentXp,
+      });
+
+      setIsLevelModalUpOpen(true);
+      setActiveChallenge(null);
+      return;
     }
 
-    setCurrentExperience(finalExperience);
     setActiveChallenge(null);
-    setCompletedChallenges((prev) => prev + 1);
+
+    await handleUpdateUser({
+      ...user,
+      completedChallenges: user.completedChallenges + 1,
+      currentXp: finalExperience,
+      totalXp: user.totalXp + user.currentXp,
+    });
   };
 
   return (
     <ChallengesContext.Provider
       value={{
-        level,
-        currentExperience,
-        completedChallenges,
         activeChallenge,
         neededExperienceToNextLevel,
         handleLevelUp,

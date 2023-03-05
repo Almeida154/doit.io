@@ -11,10 +11,10 @@ import { addDays } from 'date-fns';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 
-import api from 'services/api';
+import api from 'utils/api';
 
 import { darkTheme, lightTheme } from 'styles/theme';
-import { createTheme } from 'styles';
+import { UserService } from 'services/UserService';
 
 export interface User {
   id: string;
@@ -38,6 +38,7 @@ interface UserContextData {
   handleLogin: (githubCode: string) => void;
   handleLogout: () => void;
   theme: any;
+  handleUpdateUser: ({}: User) => Promise<void>;
 }
 
 interface UserContextProps {
@@ -85,6 +86,12 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
     setUser({} as User);
   };
 
+  const handleUpdateUser = async (user: User) => {
+    const { user: updatedUser } = await UserService.updateUser(user);
+
+    setUser(updatedUser);
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -93,6 +100,7 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
         handleLogin,
         handleLogout,
         theme,
+        handleUpdateUser,
       }}
     >
       {children}

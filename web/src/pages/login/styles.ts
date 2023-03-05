@@ -14,6 +14,8 @@ export const Wrapper = styled('div', {
     padding: '16rem 2rem 2.5rem 2rem',
     gap: '96px',
   },
+
+  background: '#000',
 });
 
 export const Content = styled('div', {

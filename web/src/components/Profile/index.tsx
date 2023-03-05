@@ -7,7 +7,6 @@ import { theme as appTheme } from 'styles';
 import { Wrapper, Picture } from './styles';
 
 export function Profile() {
-  const { level } = useContext(ChallengesContext);
   const { user, theme } = useContext(UserContext);
 
   return (
@@ -28,7 +27,7 @@ export function Profile() {
         <strong className="username">{user?.username}</strong>
         <p>
           <BiMeteor size={16} color={appTheme.colors.title.toString()} />
-          LVL {level}
+          LVL {user.level}
         </p>
       </div>
     </Wrapper>
