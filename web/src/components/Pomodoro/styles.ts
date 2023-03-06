@@ -14,7 +14,7 @@ export const Wrapper = styled('div', {
 
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    gap: '6.25rem',
+    gap: '2rem',
     alignContent: 'center',
   },
 });

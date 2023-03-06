@@ -53,12 +53,12 @@ export const Item = styled('button', {
     exit: {
       true: {
         height: 'auto',
-        background: '#ff123a70',
+        background: '#ff123a20',
         borderRadius: '8px',
         padding: '.5rem',
 
         '&:hover': {
-          backgroundColor: '#a7001c',
+          background: '#ff123a40',
         },
       },
     },

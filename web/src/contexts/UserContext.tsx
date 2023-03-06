@@ -88,8 +88,9 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
 
   const handleUpdateUser = async (user: User) => {
     const { user: updatedUser } = await UserService.updateUser(user);
+    console.log(updatedUser?.isDarkMode);
 
-    setUser(updatedUser);
+    updatedUser && setUser(updatedUser);
   };
 
   return (

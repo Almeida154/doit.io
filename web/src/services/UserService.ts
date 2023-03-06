@@ -2,7 +2,7 @@ import { User } from 'contexts/UserContext';
 import api from 'utils/api';
 
 class UserService {
-  static updateUser = async (user: User) => {
+  static updateUser = async (user: User): Promise<{ user?: User; error?: any }> => {
     try {
       const { data } = await api.put('/user/update', {
         user,

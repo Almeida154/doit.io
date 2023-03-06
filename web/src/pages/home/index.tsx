@@ -17,12 +17,11 @@ export default function Home({ accessToken }: { accessToken: string }) {
       const res = await UserService.getUser(accessToken);
       res.user && setUser(res.user);
     })();
-  }, [setUser, user.id, accessToken]);
+  }, [setUser, accessToken]);
 
   return (
     <Wrapper className={theme}>
       <SidebarMenu index={tabIndex} setIndex={setTabIndex} />
-
       {tabIndex === 0 && <Pomodoro />}
       {tabIndex === 1 && <Scoreboard />}
     </Wrapper>

@@ -12,11 +12,23 @@ interface SidebarMenuProps {
 }
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ index, setIndex }) => {
-  const { theme, handleLogout } = useContext(UserContext);
+  const { theme, handleLogout, handleUpdateUser, user } = useContext(UserContext);
+
+  const handleToggleTheme = async () => {
+    await handleUpdateUser({
+      ...user,
+      isDarkMode: user.isDarkMode ? false : true,
+    });
+  };
 
   return (
     <Wrapper className={theme}>
-      <Doit iconOnly />
+      <Doit
+        color={theme.colors.title}
+        role="button"
+        iconOnly
+        // onClick={handleToggleTheme}
+      />
 
       <Routes>
         <Item onClick={() => setIndex(0)} isActive={index === 0}>

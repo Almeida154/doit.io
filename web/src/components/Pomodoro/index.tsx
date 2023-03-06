@@ -11,8 +11,6 @@ import {
 import { CountdownProvider } from 'contexts/CountdownContext';
 import { ChallengesProvider } from 'contexts/ChallengesContext';
 
-import { UserContext } from 'contexts';
-
 import { Wrapper } from './styles';
 
 const Pomodoro: React.FC = () => {
