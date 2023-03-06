@@ -17,5 +17,6 @@ export const { styled, globalCss, getCssText, createTheme, theme } = createStitc
     small: '(max-width: 640px)',
     medium: '(max-width: 768px)',
     large: '(max-width: 1224px)',
+    infinity: '(min-width: 1436px)',
   },
 });

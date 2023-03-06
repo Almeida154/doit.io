@@ -14,7 +14,7 @@ import Router from 'next/router';
 import api from 'utils/api';
 
 import { darkTheme, lightTheme } from 'styles/theme';
-import { UserService } from 'services/UserService';
+import { UserService } from 'services';
 
 export interface User {
   id: string;

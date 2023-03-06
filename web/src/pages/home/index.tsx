@@ -1,25 +1,16 @@
 import { GetServerSideProps } from 'next';
-import { useContext, useEffect } from 'react';
-import Head from 'next/head';
+import { useContext, useEffect, useState } from 'react';
 
-import {
-  ExperienceBar,
-  Profile,
-  CompletedChallenges,
-  Countdown,
-  ChallengeBox,
-} from 'components';
-
-import { CountdownProvider } from 'contexts/CountdownContext';
-import { ChallengesProvider } from 'contexts/ChallengesContext';
-
+import { Pomodoro, Scoreboard, SidebarMenu } from 'components';
 import { UserContext } from 'contexts';
+import { UserService } from 'services';
 
 import { Wrapper } from './styles';
-import { UserService } from 'services/UserService';
 
 export default function Home({ accessToken }: { accessToken: string }) {
-  const { handleLogout, user, setUser } = useContext(UserContext);
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const { theme, user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
@@ -29,30 +20,12 @@ export default function Home({ accessToken }: { accessToken: string }) {
   }, [setUser, user.id, accessToken]);
 
   return (
-    <ChallengesProvider>
-      <Wrapper>
-        <Head>
-          <title>Home | doit.io</title>
-        </Head>
+    <Wrapper className={theme}>
+      <SidebarMenu index={tabIndex} setIndex={setTabIndex} />
 
-        <ExperienceBar />
-
-        <CountdownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
-      </Wrapper>
-      <button onClick={handleLogout}>Logout</button>
-    </ChallengesProvider>
+      {tabIndex === 0 && <Pomodoro />}
+      {tabIndex === 1 && <Scoreboard />}
+    </Wrapper>
   );
 }
 

@@ -1,6 +1,6 @@
 import { styled, theme } from 'styles';
 
-const { container, title, text, background } = theme.colors;
+const { container, text } = theme.colors;
 
 export const Wrapper = styled('div', {
   display: 'flex',
