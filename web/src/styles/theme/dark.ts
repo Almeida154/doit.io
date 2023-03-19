@@ -1,6 +1,6 @@
 import { createTheme } from 'styles';
 
-export const darkTheme = createTheme('dark-theme', {
+export const darkTheme = createTheme({
   colors: {
     title: '#FFFFFF',
     text: '#666666',

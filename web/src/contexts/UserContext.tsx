@@ -38,6 +38,7 @@ interface UserContextData {
   handleLogin: (githubCode: string) => void;
   handleLogout: () => void;
   theme: any;
+  handleToggleTheme: () => void;
   handleUpdateUser: ({}: User) => Promise<void>;
 }
 
@@ -88,9 +89,21 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
 
   const handleUpdateUser = async (user: User) => {
     const { user: updatedUser } = await UserService.updateUser(user);
-    console.log(updatedUser?.isDarkMode);
+    localStorage.setItem('@user', JSON.stringify(updatedUser));
 
     updatedUser && setUser(updatedUser);
+  };
+
+  const handleToggleTheme = async () => {
+    const newTheme = theme === lightTheme ? darkTheme : lightTheme;
+    document.body.style.background = newTheme.colors.background.value;
+
+    setTheme(newTheme);
+
+    handleUpdateUser({
+      ...user,
+      isDarkMode: newTheme === darkTheme,
+    });
   };
 
   return (
@@ -102,6 +115,7 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
         handleLogout,
         theme,
         handleUpdateUser,
+        handleToggleTheme,
       }}
     >
       {children}

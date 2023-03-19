@@ -10,7 +10,7 @@ import { Wrapper } from './styles';
 export default function Home({ accessToken }: { accessToken: string }) {
   const [tabIndex, setTabIndex] = useState(0);
 
-  const { theme, user, setUser } = useContext(UserContext);
+  const { theme, setUser } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {

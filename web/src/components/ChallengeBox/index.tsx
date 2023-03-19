@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import Image from 'next/image';
 
+import { BiMeteor } from 'react-icons/bi';
+
 import { Button } from 'components';
 import { ChallengesContext, CountdownContext, UserContext } from 'contexts';
 import { theme as appTheme } from 'styles';
 
 import { Active, NotActive, Wrapper } from './styles';
-import { BiMeteor } from 'react-icons/bi';
 
 export function ChallengeBox() {
   const { activeChallenge, handleResetChallenge, handleCompleteChallenge } =

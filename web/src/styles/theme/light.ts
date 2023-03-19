@@ -1,6 +1,6 @@
 import { createTheme } from 'styles';
 
-export const lightTheme = createTheme('light-theme', {
+export const lightTheme = createTheme({
   colors: {
     title: '#000000',
     text: '#A8A8A8',
