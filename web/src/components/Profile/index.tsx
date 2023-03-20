@@ -13,7 +13,7 @@ export function Profile() {
     <Wrapper className={theme}>
       <Picture
         src={
-          user?.github?.avatar_url ??
+          user?.avatar_url ??
           'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
         }
         alt="Your profile pic"
@@ -22,7 +22,7 @@ export function Profile() {
       />
 
       <div>
-        <strong>{user?.github?.name}</strong>
+        <strong>{user?.name}</strong>
         <br />
         <strong className="username">{user?.username}</strong>
         <p>

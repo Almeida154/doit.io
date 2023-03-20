@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { BiMeteor } from 'react-icons/bi';
 
@@ -19,11 +19,25 @@ import {
 } from './styles';
 
 import { UserContext } from 'contexts';
+import { User } from 'contexts/UserContext';
+import { ScoreboardService } from 'services';
 
 const Scoreboard: React.FC = () => {
-  const { user, theme } = useContext(UserContext);
+  const { theme } = useContext(UserContext);
 
-  const users = [user, user, user, user, user];
+  const [users, setUsers] = useState<User[]>([] as User[]);
+
+  useEffect(() => {
+    (async () => {
+      const { users, error } = await ScoreboardService.getScoreboard();
+
+      if (error) {
+        return;
+      }
+
+      users && setUsers(users);
+    })();
+  }, []);
 
   return (
     <Wrapper>
@@ -62,7 +76,7 @@ const Scoreboard: React.FC = () => {
                 <UserDataWrapper className={theme}>
                   <Picture
                     src={
-                      user?.github?.avatar_url ??
+                      user?.avatar_url ??
                       'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
                     }
                     alt="Your profile pic"
@@ -71,7 +85,7 @@ const Scoreboard: React.FC = () => {
                   />
 
                   <div>
-                    <strong>{user?.github?.name}</strong>
+                    <strong>{user?.name}</strong>
                     <p>
                       <BiMeteor size={12} color={appTheme.colors.text.toString()} />
                       LVL {user.level}

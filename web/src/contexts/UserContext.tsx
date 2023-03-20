@@ -24,22 +24,18 @@ export interface User {
   level: number;
   totalXp: number;
   isDarkMode: boolean;
-  github: {
-    name: string;
-    company: string;
-    avatar_url: string;
-    html_url: string;
-  };
+  name: string;
+  avatar_url: string;
 }
 
 interface UserContextData {
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
+  theme: any;
+  handleUpdateUser: ({}: User) => Promise<void>;
   handleLogin: (githubCode: string) => void;
   handleLogout: () => void;
-  theme: any;
   handleToggleTheme: () => void;
-  handleUpdateUser: ({}: User) => Promise<void>;
 }
 
 interface UserContextProps {

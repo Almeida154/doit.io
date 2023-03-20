@@ -21,6 +21,8 @@ class UserController {
         },
       });
 
+      await prisma.$disconnect();
+
       return reply.status(STANDARD.SUCCEED).send({
         user,
       });
@@ -38,6 +40,8 @@ class UserController {
           id,
         },
       });
+
+      await prisma.$disconnect();
 
       return reply.status(STANDARD.SUCCEED).send({ user });
     } catch (error) {
