@@ -13,12 +13,28 @@ export const Wrapper = styled('div', {
     margin: '2.5rem',
     borderRadius: '8px',
   },
+
+  '@small': {
+    position: 'fixed',
+    left: 0,
+    bottom: 0,
+    maxWidth: '100%',
+    width: '100%',
+    background: '$container',
+    padding: '1rem 2rem',
+    flexDirection: 'row',
+    opacity: 1,
+  },
 });
 
 export const Routes = styled('div', {
   display: 'flex',
   gap: '24px',
   flexDirection: 'column',
+
+  '@small': {
+    flexDirection: 'row',
+  },
 });
 
 export const Item = styled('button', {
@@ -28,6 +44,10 @@ export const Item = styled('button', {
   padding: '1rem',
   lineHeight: 0,
   height: '56px',
+
+  '@small': {
+    padding: '0px 8px',
+  },
 
   variants: {
     isActive: {
@@ -43,6 +63,10 @@ export const Item = styled('button', {
           left: '-16px',
           top: 0,
           borderRadius: '0 8px 8px 0',
+
+          '@small': {
+            display: 'none',
+          },
         },
       },
       false: {

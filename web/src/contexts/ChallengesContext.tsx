@@ -86,7 +86,7 @@ export const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
         level: user.level + 1,
         completedChallenges: user.completedChallenges + 1,
         currentXp: finalExperience,
-        totalXp: user.totalXp + user.currentXp,
+        totalXp: user.totalXp + amount,
       });
 
       setIsLevelModalUpOpen(true);

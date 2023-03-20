@@ -31,7 +31,7 @@ const Pomodoro: React.FC = () => {
               <Countdown />
             </div>
 
-            <div>
+            <div className="challengeBoxContainer">
               <ChallengeBox />
             </div>
           </section>

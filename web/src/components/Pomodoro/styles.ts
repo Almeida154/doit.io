@@ -17,5 +17,14 @@ export const Wrapper = styled('div', {
     gridTemplateColumns: '1fr 1fr',
     gap: '2rem',
     alignContent: 'center',
+
+    '@medium': {
+      marginTop: '4rem',
+      gridTemplateColumns: '1fr',
+
+      '.challengeBoxContainer': {
+        marginTop: '4rem',
+      },
+    },
   },
 });

@@ -51,7 +51,7 @@ const Scoreboard: React.FC = () => {
         <TableHead>
           <TableRow>
             <TableCell isHeader isIndex className="index">
-              Position
+              Pos.
             </TableCell>
             <TableCell isHeader className="user">
               User
@@ -95,10 +95,16 @@ const Scoreboard: React.FC = () => {
               </TableCell>
 
               <TableCell className="challenges">
-                {user.completedChallenges} completed
+                <p>
+                  <span>{user.completedChallenges}</span> completed
+                </p>
               </TableCell>
 
-              <TableCell className="experience">{user.totalXp} xp</TableCell>
+              <TableCell className="experience">
+                <p>
+                  <span>{user.totalXp}</span> xp
+                </p>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

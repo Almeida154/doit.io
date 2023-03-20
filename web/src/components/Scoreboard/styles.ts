@@ -39,22 +39,35 @@ export const TableCell = styled('td', {
   padding: '16px',
   display: 'flex',
   alignItems: 'center',
+  marginRight: '8px',
 
-  '&.index': { flex: 0.1 },
-  '&.user': { flex: 1 },
-  '&.challenges': { flex: 0.3 },
-  '&.experience': { flex: 0.3 },
+  '@small': {
+    marginRight: '0px',
+  },
+
+  '&.index': { width: '10%' },
+  '&.user': { width: '44%' },
+  '&.challenges': { width: '26%' },
+  '&.experience': { width: '20%' },
+
+  span: {
+    color: '$title',
+  },
 
   variants: {
     isIndex: {
       true: {
-        marginRight: '8px',
         textAlign: 'center',
+
+        '@small': {
+          textAlign: 'left',
+        },
       },
     },
 
     isHeader: {
       true: {
+        padding: '0px',
         background: 'none',
         textAlign: 'left',
       },
