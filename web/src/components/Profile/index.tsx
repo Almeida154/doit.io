@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BiMeteor } from 'react-icons/bi';
 
-import { ChallengesContext, UserContext } from 'contexts';
+import { UserContext } from 'contexts';
 import { theme as appTheme } from 'styles';
 
 import { Wrapper, Picture } from './styles';
