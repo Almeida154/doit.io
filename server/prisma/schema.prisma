@@ -12,10 +12,13 @@ datasource db {
 
 model User {
   id                  String  @id @default(uuid())
+  github_id           String  @unique 
   username            String  @unique
+  name                String
   totalXp             Int
   currentXp           Int
   level               Int
   completedChallenges Int
-  isDarkMode        Boolean
+  isDarkMode          Boolean
+  avatar_url          String
 }

@@ -12,7 +12,7 @@ interface SidebarMenuProps {
 }
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ index, setIndex }) => {
-  const { theme, handleLogout, handleToggleTheme, user } = useContext(UserContext);
+  const { theme, handleLogout, handleToggleTheme } = useContext(UserContext);
 
   return (
     <Wrapper className={theme}>

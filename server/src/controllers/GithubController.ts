@@ -8,10 +8,10 @@ import { STANDARD, ERROR_401 } from '../helpers/constants';
 const prisma = new PrismaClient();
 
 interface GitHubResponse {
+  id: number;
   avatar_url: string;
-  bio: string;
-  company: string;
   login: string;
+  name: string;
 }
 
 class GithubController {
@@ -31,6 +31,8 @@ class GithubController {
         }
       );
 
+      console.log('data', data);
+
       const accessToken = data.access_token;
 
       const { data: githubData } = await axios.get<GitHubResponse>(
@@ -42,10 +44,12 @@ class GithubController {
         }
       );
 
+      console.log('githubData', githubData);
+
       let user = await prisma.user.findFirst({
         where: {
-          username: {
-            equals: githubData.login,
+          github_id: {
+            equals: String(githubData.id),
           },
         },
       });
@@ -59,16 +63,17 @@ class GithubController {
             level: 1,
             totalXp: 0,
             username: githubData.login,
+            avatar_url: githubData.avatar_url,
+            name: githubData.name,
             id: uuid(),
+            github_id: String(githubData.id),
           },
         });
       }
 
       await prisma.$disconnect();
 
-      return reply
-        .code(STANDARD.SUCCEED)
-        .send({ ...user, github: githubData, accessToken });
+      return reply.code(STANDARD.SUCCEED).send({ ...user, accessToken });
     } catch (error) {
       return reply.send({ error });
     }
@@ -96,11 +101,10 @@ class GithubController {
       });
 
       if (user) {
-        return reply.status(STANDARD.SUCCEED).send({
-          ...user,
-          github: githubData,
-        });
+        return reply.status(STANDARD.SUCCEED).send({ ...user });
       }
+
+      await prisma.$disconnect();
 
       return reply.status(ERROR_401.statusCode).send({});
     } catch (error) {
