@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img alt="Doit.io mockup" src=".github/move.it-mockup.png" width="60%">
+  <img alt="Doit.io mockup" src=".github/doit.io-mockup.png" width="60%">
 </p>
 
 ### 🤳 About
